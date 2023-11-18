@@ -4,14 +4,17 @@ import HomeCardImage2 from "@/public/img/homeCard_2.jpg";
 import HomeCardImage3 from "@/public/img/homeCard_3.jpg";
 import HomeCardImage4 from "@/public/img/homeCard_4.jpg";
 import HomeContent from "./HomeContent";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { getUserProfile } from "@/services/user/user.service";
 
-export default function HomeCard() {
-  let role = "guest";
-  return (
-    <div className="relative">
-      <div className="px-10 sm:px-20 grid grid-cols-2 top-[-20px] absolute z-30 pb-5">
-        <>
-          {role === "guest" ? (
+export default async function HomeCard() {
+  const session = await getServerSession(authOptions);
+  if (!session)
+    return (
+      <div className="relative">
+        <div className="px-10 sm:px-20 grid grid-cols-2 top-[-20px] absolute z-30 pb-5">
+          <>
             <>
               <>
                 <div className="col-span-1 p-2 sm:p-5 text-center bg-gray-200 rounded-tl-lg flex ">
@@ -50,7 +53,19 @@ export default function HomeCard() {
                 </div>
               </>
             </>
-          ) : role === "user" ? (
+          </>
+        </div>
+      </div>
+    );
+
+  const profile = await getUserProfile(session.user.token);
+  const role = profile.data.role;
+
+  return (
+    <div className="relative">
+      <div className="px-10 sm:px-20 grid grid-cols-2 top-[-20px] absolute z-30 pb-5">
+        <>
+          {role === "user" ? (
             <>
               <>
                 <div className="col-span-1 p-2 sm:p-5 text-center bg-gray-200 rounded-tl-lg flex ">
