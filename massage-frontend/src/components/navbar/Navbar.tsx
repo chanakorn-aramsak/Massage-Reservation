@@ -7,7 +7,7 @@ export default function Navbar() {
   let isLogin = true;
   return (
     <div className="h-[50px] w-full inset-0 px-4 py-2 mb-[100px] z-50 fixed flex flex-row bg-white">
-      <Link href="/">
+      <Link href="/" className="w-full">
         <Image
           src={navbarLogo}
           alt="Logo"
