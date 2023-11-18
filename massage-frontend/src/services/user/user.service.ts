@@ -1,4 +1,4 @@
-import { ILogin } from "@/interfaces/user/login.interface";
+import { ILogin, IRegister } from "@/interfaces/user/login.interface";
 
 export const login = async (loginForm: ILogin) => {
   try {
@@ -32,6 +32,28 @@ export const getUserProfile = async (token: string) => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
+    });
+
+    if (!res.ok) {
+      throw new Error("Something went wrong");
+    }
+
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
+export const register = async (registerForm: IRegister) => {
+  try {
+    const res = await fetch("http://localhost:5001/api/v1/auth/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(registerForm),
     });
 
     if (!res.ok) {
