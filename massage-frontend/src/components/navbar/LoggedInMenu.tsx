@@ -43,7 +43,7 @@ export default function LoggedInMenu({ userName }: { userName: string }) {
           }}
           className="text-primary font-serif"
         >
-          Reservations
+          My Reservations
         </MenuItem>
         <MenuItem
           onClick={() => {
