@@ -7,6 +7,7 @@ import { IReservation } from "@/interfaces/reservation/reservation.interface";
 export default async function Reservations() {
   const session = await getServerSession(authOptions);
   if (!session) return <>You need to login to make reservation</>;
+  const role = session.user.role;
   const userId = session.user._id;
   const bookingsJson = await getBookings(session.user.token);
   const bookings = Array.from(bookingsJson.data) as IReservation[];
