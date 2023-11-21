@@ -1,8 +1,10 @@
 import { ILogin, IRegister } from "@/interfaces/user/login.interface";
 
+const API_BASE_URL = `http://localhost:${process.env.BACKEND_PORT || 5001}/api/v1`;
+
 export const login = async (loginForm: ILogin) => {
   try {
-    const res = await fetch("http://localhost:5001/api/v1/auth/login", {
+    const res = await fetch(`${API_BASE_URL}/auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -26,7 +28,7 @@ export const login = async (loginForm: ILogin) => {
 
 export const getUserProfile = async (token: string) => {
   try {
-    const res = await fetch("http://localhost:5001/api/v1/auth/me", {
+    const res = await fetch(`${API_BASE_URL}/auth/me`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -48,7 +50,7 @@ export const getUserProfile = async (token: string) => {
 
 export const register = async (registerForm: IRegister) => {
   try {
-    const res = await fetch("http://localhost:5001/api/v1/auth/register", {
+    const res = await fetch(`${API_BASE_URL}/auth/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
