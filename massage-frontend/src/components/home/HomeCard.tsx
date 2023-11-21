@@ -138,7 +138,7 @@ export default async function HomeCard() {
                     description="Admin privileges unlocked! Navigate through our Reservation Management interface effortlessly. Handle bookings, track schedules, and ensure a seamless experience for our valued guests."
                     showButton={true}
                     textButton="Manage All Reservations"
-                    href="/reservations/manage"
+                    href="/manage-reservations"
                   />
                 </div>
               </>
