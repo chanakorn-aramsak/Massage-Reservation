@@ -8,8 +8,8 @@ export default async function Reservations() {
     const session = await getServerSession(authOptions);
     if (!session) return <>You need to login to make reservation</>;
     const role = session.user.role;
-    const userId = session.user._id;
-    const bookingsJson = await getBookings(session.user.token);
+    const token = session.user.token;
+    const bookingsJson = await getBookings(token);
     const bookings = Array.from(bookingsJson.data) as IReservation[];
 
     return (
@@ -20,7 +20,7 @@ export default async function Reservations() {
             {bookings.length > 0 ? (
                 <div className="space-y-4 py-8">
                     {bookings.map((booking: IReservation) => (
-                        <ReservationCard booking={booking} />
+                        <ReservationCard booking={booking} authToken={token} />
                     ))}
                 </div>
             ) : (
