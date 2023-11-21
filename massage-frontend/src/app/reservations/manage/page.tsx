@@ -1,3 +1,3 @@
-export default function MangeReservations() {
-  return <>Manage Reservations for admin</>;
+export default function ManageReservations() {
+  return <>Manage Reservations</>;
 }
