@@ -60,7 +60,7 @@ export default function EditReservation({
             // Optionally, redirect or update UI after successful update
             router.push("/manage-reservations").then(() => {
                 router.reload();
-              });
+            });
         } catch (error) {
             console.error("Error updating booking:", error);
             // Handle error (e.g., show error message to the user)
