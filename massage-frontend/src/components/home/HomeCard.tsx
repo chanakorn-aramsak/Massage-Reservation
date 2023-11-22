@@ -6,7 +6,6 @@ import HomeCardImage4 from "@/public/img/homeCard_4.jpg";
 import HomeContent from "./HomeContent";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { getUserProfile } from "@/services/user/user.service";
 
 export default async function HomeCard() {
   const session = await getServerSession(authOptions);
@@ -58,8 +57,7 @@ export default async function HomeCard() {
       </div>
     );
 
-  const profile = await getUserProfile(session.user.token);
-  const role = profile.data.role;
+  const role = session.user.role;
 
   return (
     <div className="relative">

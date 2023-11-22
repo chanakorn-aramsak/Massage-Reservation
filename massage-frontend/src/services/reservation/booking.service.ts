@@ -1,6 +1,8 @@
 import { IReservationForm } from "@/interfaces/reservation/reservation.interface";
 
-const API_BASE_URL = `http://localhost:${process.env.BACKEND_PORT || 5000}/api/v1`;
+const API_BASE_URL = `http://localhost:${
+  process.env.BACKEND_PORT || 5001
+}/api/v1`;
 
 export const createBooking = async (
   bookingForm: IReservationForm,
@@ -24,7 +26,9 @@ export const createBooking = async (
       const message = data?.message;
       console.log(userId);
       console.log(message);
-      if (message === `The user with ID ${userId} has already made 3 bookings`) {
+      if (
+        message === `The user with ID ${userId} has already made 3 bookings`
+      ) {
         console.log("return false");
         return false;
       }
@@ -103,8 +107,11 @@ export const deleteBooking = async (bookingId: string, token: string) => {
   }
 };
 
-
-export const editBooking = async (bookingId: string, token: string, body: IReservationForm) => {
+export const editBooking = async (
+  bookingId: string,
+  token: string,
+  body: IReservationForm
+) => {
   try {
     const res = await fetch(`${API_BASE_URL}/bookings/${bookingId}`, {
       method: "PUT",
@@ -112,7 +119,7 @@ export const editBooking = async (bookingId: string, token: string, body: IReser
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(body)
+      body: JSON.stringify(body),
     });
 
     if (!res.ok) {

@@ -34,6 +34,7 @@ exports.login = async (req, res, next) => {
         .json({ success: false, msg: "Please provide an email and password" });
     }
     const user = await User.findOne({ email }).select("+password");
+
     if (!user) {
       return res.status(400).json({
         success: false,
@@ -72,6 +73,7 @@ const sendTokenResponse = (user, statusCode, res) => {
     _id: user._id,
     name: user.name,
     email: user.email,
+    role: user.role,
     token,
   });
 };

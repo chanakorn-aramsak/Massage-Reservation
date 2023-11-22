@@ -1,12 +1,9 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import ReservationForm from "@/components/reservation/ReservationForm";
+import { withAuth } from "@/lib/withAuth";
 
-export default async function MassageReservationPage({
-  params,
-}: {
-  params: { id: string };
-}) {
+async function MassageReservationPage({ params }: { params: { id: string } }) {
   const session = await getServerSession(authOptions);
   if (!session) return <>You need to login to make reservation</>;
 
@@ -25,3 +22,5 @@ export default async function MassageReservationPage({
     </main>
   );
 }
+
+export default withAuth(MassageReservationPage, ["admin", "user"]);
