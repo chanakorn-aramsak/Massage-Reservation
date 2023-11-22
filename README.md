@@ -61,3 +61,7 @@ Run the script in PowerShell:
 
 -   Copies the local database dump to the target environment.
 -   Restores the database in the target environment using **`mongorestore`**.
+
+
+### How to take raw google drive photo
+https://stackoverflow.com/questions/24834877/google-drive-raw-data
