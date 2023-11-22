@@ -1,5 +1,5 @@
 "use client";
-import React, { ChangeEventHandler, useState } from "react";
+import React, { ChangeEventHandler, useEffect, useState } from "react";
 import {
     Button,
     FormControl,
@@ -14,10 +14,26 @@ import { ChangeEvent } from "react";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { useRouter } from "next/navigation";
-export default function EditReservation() {
+import { editBooking } from "@/services/reservation/booking.service";
+import { IReservation } from "@/interfaces/reservation/reservation.interface";
+export default function EditReservation({
+    params,
+    authToken,
+    reservation,
+}: {
+    params: { id: string };
+    authToken: string;
+    reservation: IReservation;
+}) {
     const router = useRouter();
     const [duration, setDuration] = useState<number | "">("");
     const [date, setDate] = useState<Dayjs | null>(null);
+
+    // Update state if reservation prop changes
+    useEffect(() => {
+        setDate(reservation ? dayjs(reservation.bookingDate) : null);
+        setDuration(reservation.serviceMinute || "");
+    }, [reservation]);
 
     const handleDateChange = (selectedDate: Date) => {
         const newDate = dayjs(selectedDate);
@@ -26,18 +42,29 @@ export default function EditReservation() {
     const handleDurationChange = (event: SelectChangeEvent) => {
         setDuration(Number(event.target.value));
     };
-    const handleSubmit = () => {
-        // Implement submission logic
+    const handleSubmit = async () => {
         if (!date || duration === "") {
-            alert("Please select both a date and a duration for the reservation.");
-            return; // Stop the submission process
+            alert(
+                "Please select both a date and a duration for the reservation."
+            );
+            return;
         }
-        console.log(
-            "Submitted reservation with date:",
-            date?.format("YYYY-MM-DD"),
-            "and duration:",
-            duration
-        );
+
+        const bookingDate = date?.format("YYYY-MM-DD");
+        const serviceMinute = duration; // Assuming duration is in minutes
+        const body = { bookingDate, serviceMinute };
+        try {
+            const response = await editBooking(params.id, authToken, body);
+            console.log("response", response);
+
+            // Optionally, redirect or update UI after successful update
+            router.push("/manage-reservations").then(() => {
+                router.reload();
+            });
+        } catch (error) {
+            console.error("Error updating booking:", error);
+            // Handle error (e.g., show error message to the user)
+        }
     };
 
     const handleCancel = () => {
@@ -84,8 +111,8 @@ export default function EditReservation() {
                             onChange={handleDurationChange}
                         >
                             <MenuItem value={60}>1 hr</MenuItem>
+                            <MenuItem value={90}>1.5 hr</MenuItem>
                             <MenuItem value={120}>2 hr</MenuItem>
-                            <MenuItem value={180}>3 hr</MenuItem>
                         </Select>
                     </FormControl>
                 </div>

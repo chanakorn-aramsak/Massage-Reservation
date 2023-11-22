@@ -3,12 +3,13 @@ import { authOptions } from "../api/auth/[...nextauth]/route";
 import { getBookings } from "@/services/reservation/booking.service";
 import ReservationCard from "@/components/reservation/ReservationCard";
 import { IReservation } from "@/interfaces/reservation/reservation.interface";
+import { withAuth } from "@/lib/withAuth";
 
-export default async function Reservations() {
+async function Reservations() {
   const session = await getServerSession(authOptions);
   if (!session) return <>You need to login to make reservation</>;
-  const role = session.user.role;
   const userId = session.user._id;
+  const token = session.user.token;
   const bookingsJson = await getBookings(session.user.token);
   const bookings = Array.from(bookingsJson.data) as IReservation[];
 
@@ -23,7 +24,7 @@ export default async function Reservations() {
           {bookings
             .filter((booking: IReservation) => booking.user._id === userId)
             .map((booking: IReservation) => (
-              <ReservationCard booking={booking} />
+              <ReservationCard booking={booking} authToken={token} />
             ))}
         </div>
       ) : (
@@ -34,3 +35,5 @@ export default async function Reservations() {
     </main>
   );
 }
+
+export default withAuth(Reservations, ["admin", "user"]);
