@@ -33,8 +33,7 @@ const CreateStudioForm = ({ authToken }: { authToken: string }) => {
             ...prevFormData,
             [event.target.name]: event.target.value,
         }));
-    }
-   
+    };
 
     // Handle form submission
     const handleSubmit = async () => {
@@ -47,7 +46,7 @@ const CreateStudioForm = ({ authToken }: { authToken: string }) => {
             tel: formData.telephone,
             picture: formData.imageURL,
         };
-
+        
         // Replace 'yourAuthToken' with the actual token
         try {
             const response = await postShop(shopData, authToken);
@@ -58,6 +57,7 @@ const CreateStudioForm = ({ authToken }: { authToken: string }) => {
             // Handle error, maybe show an error message to the user
         }
         router.push("/massages");
+        router.refresh();
     };
     return (
         <form onSubmit={handleSubmit}>

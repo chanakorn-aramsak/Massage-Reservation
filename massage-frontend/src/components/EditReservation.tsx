@@ -58,9 +58,7 @@ export default function EditReservation({
             console.log("response", response);
 
             // Optionally, redirect or update UI after successful update
-            router.push("/manage-reservations").then(() => {
-                router.reload();
-            });
+            router.push("/manage-reservations");
         } catch (error) {
             console.error("Error updating booking:", error);
             // Handle error (e.g., show error message to the user)
@@ -110,9 +108,9 @@ export default function EditReservation({
                             label="Duration"
                             onChange={handleDurationChange}
                         >
-                            <MenuItem value={60}>1 hr</MenuItem>
-                            <MenuItem value={90}>1.5 hr</MenuItem>
-                            <MenuItem value={120}>2 hr</MenuItem>
+                            <MenuItem value={60}>60 minutes</MenuItem>
+                            <MenuItem value={90}>90 minutes</MenuItem>
+                            <MenuItem value={120}>120 minutes</MenuItem>
                         </Select>
                     </FormControl>
                 </div>
