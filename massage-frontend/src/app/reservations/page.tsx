@@ -12,7 +12,8 @@ async function Reservations() {
   const token = session.user.token;
   const bookingsJson = await getBookings(session.user.token);
   const bookings = Array.from(bookingsJson.data) as IReservation[];
-
+  console.log(bookings)
+  console.log(userId)
   return (
     <main className="flex flex-col h-screen py-4">
       <h1 className="text-5xl font-black text-primary text-center">

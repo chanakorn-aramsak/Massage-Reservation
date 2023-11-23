@@ -7,7 +7,7 @@ import { Router } from "next/router";
 import { useRouter } from "next/navigation";
 import { IMassage } from "@/interfaces/massage.interface";
 
-const ShopDetails = ({ shopId, token }: { shopId: string; token: string }) => {
+const ShopDetails = ({ shopId, token, role }: { shopId: string; token: string, role:string }) => {
     const router = useRouter();
     const [shop, setShop] = useState<IMassage>();
     const [error, setError] = useState<string>("");
@@ -94,7 +94,7 @@ const ShopDetails = ({ shopId, token }: { shopId: string; token: string }) => {
                         mt: 2,
                     }}
                 >
-                    <Button
+                  {  role==="admin" && (<Button
                         variant="outlined"
                         className="border-yellow-900 hover:border-yellow-950 md:text-yellow-900"
                         onClick={() =>{
@@ -105,7 +105,7 @@ const ShopDetails = ({ shopId, token }: { shopId: string; token: string }) => {
                         }
                     >
                         Edit studio
-                    </Button>
+                    </Button>)}
                     <Button
                         variant="contained"
                         className="bg-yellow-900 hover:bg-yellow-950"
@@ -115,13 +115,13 @@ const ShopDetails = ({ shopId, token }: { shopId: string; token: string }) => {
                     >
                         Make Reservation
                     </Button>
-                    <Button
+                   { role==="admin" && <Button
                         variant="outlined"
                         className="border-yellow-900 hover:border-yellow-950 md:text-yellow-900"
                         onClick={() => setIsDialogOpen(true)}
                     >
                         Delete studio
-                    </Button>
+                    </Button>}
                 </Box>
                 <DeleteDialog
                     open={isDialogOpen}

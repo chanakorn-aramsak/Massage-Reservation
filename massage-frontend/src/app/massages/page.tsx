@@ -26,9 +26,9 @@ async function Massages() {
     <>
       <Banner />
       <Stepper massages={shops} />
-      <div className="flex justify-center ">
+      {session.user.role==="admin" && <div className="flex justify-center ">
         <AddIcon />
-      </div>
+      </div>}
     </>
   );
 }

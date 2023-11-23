@@ -2,7 +2,7 @@ import { IMassageBody } from "@/interfaces/massage.interface";
 
 // Function to fetch data from the API
 const API_BASE_URL = `http://localhost:${
-  process.env.BACKEND_PORT || 5001
+  process.env.BACKEND_PORT || 5000
 }/api/v1`;
 export const getShops = async (token: string) => {
   try {
