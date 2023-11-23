@@ -62,7 +62,7 @@ export default function ReservationCard({
                     open={isDialogOpen}
                     setOpen={setIsDialogOpen}
                     onDelete={handleDeleteConfirmation}
-                    reservationId={booking._id}
+                    id={booking._id}
                 />
             </div>
         </div>

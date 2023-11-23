@@ -15,7 +15,7 @@ async function EditReservationPage({ params }: { params: { id: string } }) {
 
   return (
     <>
-      {params.id}
+
       <Suspense fallback={<LinearProgress />}>
         <EditReservation
           params={params}

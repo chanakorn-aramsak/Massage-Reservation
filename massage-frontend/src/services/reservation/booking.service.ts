@@ -1,7 +1,7 @@
 import { IReservationForm } from "@/interfaces/reservation/reservation.interface";
 
 const API_BASE_URL = `http://localhost:${
-  process.env.BACKEND_PORT || 5001
+  process.env.NEXT_PUBLIC_BACKEND_PORT || 5000
 }/api/v1`;
 
 export const createBooking = async (

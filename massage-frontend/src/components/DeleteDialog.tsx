@@ -12,21 +12,21 @@ interface DeleteDialogProps {
     open: boolean;
     setOpen: React.Dispatch<React.SetStateAction<boolean>>;
     onDelete: (_id:string) => void;
-    reservationId: string;
+    id: string;
 }
 
 const DeleteDialog: React.FC<DeleteDialogProps> = ({
     open,
     setOpen,
     onDelete,
-    reservationId,
+    id,
 }) => {
     const handleClose = () => {
         setOpen(false);
     };
 
     const handleDelete = () => {
-        onDelete(reservationId);
+        onDelete(id);
         setOpen(false);
     };
 
