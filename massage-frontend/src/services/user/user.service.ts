@@ -1,6 +1,6 @@
 import { ILogin, IRegister } from "@/interfaces/user/login.interface";
 
-const API_BASE_URL = `http://localhost:${process.env.BACKEND_PORT || 5001}/api/v1`;
+const API_BASE_URL = `http://localhost:${process.env.NEXT_PUBLIC_BACKEND_PORT || 5001}/api/v1`;
 
 export const login = async (loginForm: ILogin) => {
   try {
