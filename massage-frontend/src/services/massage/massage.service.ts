@@ -2,7 +2,7 @@ import { IMassageBody } from "@/interfaces/massage.interface";
 
 // Function to fetch data from the API
 const API_BASE_URL = `http://localhost:${
-  process.env.BACKEND_PORT || 5000
+  process.env.BACKEND_PORT || 5001 || 5000
 }/api/v1`;
 export const getShops = async (token: string) => {
   try {
@@ -26,7 +26,6 @@ export const getShops = async (token: string) => {
   }
 };
 
-
 export const postShop = async (shopData: IMassageBody, token: string) => {
   try {
     const response = await fetch(`${API_BASE_URL}/shops`, {
@@ -47,7 +46,7 @@ export const postShop = async (shopData: IMassageBody, token: string) => {
   } catch (error) {
     // If the error is not an instance of Error, create a new Error
     if (!(error instanceof Error)) {
-      throw new Error('An unknown error occurred');
+      throw new Error("An unknown error occurred");
     }
     // Log the error message and rethrow the error
     console.error(error.message);
