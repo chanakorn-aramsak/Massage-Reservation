@@ -34,6 +34,7 @@ exports.login = async (req, res, next) => {
         .json({ success: false, msg: "Please provide an email and password" });
     }
     const user = await User.findOne({ email }).select("+password");
+
     if (!user) {
       return res.status(400).json({
         success: false,
@@ -72,6 +73,7 @@ const sendTokenResponse = (user, statusCode, res) => {
     _id: user._id,
     name: user.name,
     email: user.email,
+    role: user.role,
     token,
   });
 };
@@ -85,6 +87,25 @@ exports.getMe = async (req, res, next) => {
     success: true,
     data: user,
   });
+};
+
+//@desc   Update user details
+//@route  PUT /api/v1/auth/me
+//@access Private
+exports.updateMe = async (req, res, next) => {
+  try {
+    let user = await User.findByIdAndUpdate(req.user.id, req.body, {
+      new: true,
+      runValidators: true,
+    });
+    if (!user) {
+      res.status(400).json({ success: false });
+    }
+
+    res.status(200).json({ success: true, data: user });
+  } catch (error) {
+    res.status(400).json({ success: false });
+  }
 };
 
 //@desc   Log user out / clear cookie

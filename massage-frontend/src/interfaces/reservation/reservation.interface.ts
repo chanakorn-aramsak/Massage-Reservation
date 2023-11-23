@@ -20,3 +20,9 @@ export interface IReservation {
     tel: string;
   };
 }
+
+
+export interface IReservationForm {
+  bookingDate: string;
+  serviceMinute: number;
+}

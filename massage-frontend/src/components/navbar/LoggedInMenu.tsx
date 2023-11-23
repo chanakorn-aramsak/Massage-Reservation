@@ -38,6 +38,15 @@ export default function LoggedInMenu({ userName }: { userName: string }) {
       >
         <MenuItem
           onClick={() => {
+            router.push("/profile");
+            handleClose();
+          }}
+          className="text-primary font-serif"
+        >
+          My Profile
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
             router.push("/reservations");
             handleClose();
           }}

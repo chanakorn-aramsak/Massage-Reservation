@@ -9,28 +9,22 @@ import Stepper from "@/components/Carousel";
 import React from "react";
 import { getShops } from "@/services/massage/massage.service";
 import { getServerSession } from "next-auth";
-import { authOptions } from "../api/auth/[...nextauth]/route";
 import { IMassage } from "@/interfaces/massage.interface";
 import { redirect } from "next/navigation";
 import AddIcon from "@/components/AddIcon";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import EditStudioForm from "@/components/EditStudioForm";
 
-async function Massages() {
-  const session = await getServerSession(authOptions);
-  if (!session) return <>You need to login to make reservation</>;
-  const userId = session.user._id;
-  const token = session.user.token;
-  const shopsJson = await getShops(session.user.token);
-  const shops = Array.from(shopsJson.data) as IMassage[];
-
-  return (
-    <>
-      <Banner />
-      <Stepper massages={shops} />
-      {session.user.role==="admin" && <div className="flex justify-center ">
-        <AddIcon />
-      </div>}
-    </>
-  );
+async function editPage({ params }: { params: { id: string } }) {
+    const session = await getServerSession(authOptions);
+    const userId = session.user._id;
+    const token = session.user.token;
+    
+    return (
+        <>
+            <EditStudioForm authToken={token} shopId={params.id}/>
+        </>
+    );
 }
 
-export default withAuth(Massages, ["admin", "user"]);
+export default withAuth(editPage, ["admin"]);
