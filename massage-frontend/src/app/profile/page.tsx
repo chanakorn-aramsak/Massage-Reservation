@@ -2,6 +2,7 @@ import { withAuth } from "@/lib/withAuth";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getUserProfile } from "@/services/user/user.service";
+import { Button, Link } from "@mui/material";
 
 async function MyProfilePage() {
   const session = await getServerSession(authOptions);
@@ -26,6 +27,15 @@ async function MyProfilePage() {
           Telephone: {user.data.tel}
         </p>
       </div>
+
+      <Button
+        variant="contained"
+        color="primary"
+        href="/profile/edit"
+        className="w-[40%] font-serif text-white bg-primary hover:bg-primaryHover mt-8"
+      >
+        Edit Profile
+      </Button>
     </main>
   );
 }

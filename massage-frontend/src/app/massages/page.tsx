@@ -15,21 +15,22 @@ import { redirect } from "next/navigation";
 import AddIcon from "@/components/AddIcon";
 
 async function Massages() {
-    const session = await getServerSession(authOptions);
-    const userId = session.user._id;
-    const token = session.user.token;
-    const shopsJson = await getShops(session.user.token);
-    const shops = Array.from(shopsJson.data) as IMassage[];
+  const session = await getServerSession(authOptions);
+  if (!session) return <>You need to login to make reservation</>;
+  const userId = session.user._id;
+  const token = session.user.token;
+  const shopsJson = await getShops(session.user.token);
+  const shops = Array.from(shopsJson.data) as IMassage[];
 
-    return (
-        <>
-            <Banner />
-            <Stepper massages={shops} />
-            <div className="flex justify-center ">
-                <AddIcon />
-            </div>
-        </>
-    );
+  return (
+    <>
+      <Banner />
+      <Stepper massages={shops} />
+      <div className="flex justify-center ">
+        <AddIcon />
+      </div>
+    </>
+  );
 }
 
 export default withAuth(Massages, ["admin", "user"]);

@@ -89,6 +89,25 @@ exports.getMe = async (req, res, next) => {
   });
 };
 
+//@desc   Update user details
+//@route  PUT /api/v1/auth/me
+//@access Private
+exports.updateMe = async (req, res, next) => {
+  try {
+    let user = await User.findByIdAndUpdate(req.user.id, req.body, {
+      new: true,
+      runValidators: true,
+    });
+    if (!user) {
+      res.status(400).json({ success: false });
+    }
+
+    res.status(200).json({ success: true, data: user });
+  } catch (error) {
+    res.status(400).json({ success: false });
+  }
+};
+
 //@desc   Log user out / clear cookie
 //@route  GET /api/v1/auth/logout
 //@access Private

@@ -7,6 +7,7 @@ import { withAuth } from "@/lib/withAuth";
 
 async function Reservations() {
   const session = await getServerSession(authOptions);
+  if (!session) return <>You need to login to make reservation</>;
   const userId = session.user._id;
   const token = session.user.token;
   const bookingsJson = await getBookings(session.user.token);

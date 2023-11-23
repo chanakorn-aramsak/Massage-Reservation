@@ -10,3 +10,11 @@ export interface IRegister {
   role: string;
   password: string;
 }
+
+export interface IUser {
+  _id: string;
+  name: string;
+  email: string;
+  tel: string;
+  role: string;
+}
